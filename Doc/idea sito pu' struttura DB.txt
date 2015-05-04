@@ -1,0 +1,28 @@
+pagine:
+
+	index:
+		link ad altre pagine
+		grafico generale europeo a torta
+		grafico verticale per ogni liguaggio(py|----------
+						     js|-------
+						     rb|---)
+		
+
+	filter application:(tutto su una pagina, poi i link in alto ti portano a vedere la sezione richiesta)
+		per stato(default Italia, iin base alla selezione il grafico cambia)
+		per tipologia di linguaggio
+		tweet piu' popolari
+		
+	how we get statistic:
+		da dove prendiamo i dati
+		come li prendiamo (da dove e con che metodi)
+		come li puliamo
+		di cosa teniamo conto 
+		come realizziamo le statistiche\grafici
+		cosa usiamo e dove mettiamo tutti i dati
+		chi siamo e cosa abbiemo fatto
+		
+
+posgreSql: pass: Password
+	   port: 5432
+database, colonne: |id|testo_tweet|nome_user|rt|pref|leng\stato|tag_linguaggio
