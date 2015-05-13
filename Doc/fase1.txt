@@ -1,0 +1,4 @@
+Progetto Fase 1
+•	Ricezione tweet contenenti riferimenti ai linguaggi di programmazione e salvataggio su db dei risultati
+•	Analisi numerica dei tweet salvati su db, suddividendo tweet per nazione e poi per linguaggio
+•	Visualizzazione grafica dei risultati per l’intera europa o per singola nazione
