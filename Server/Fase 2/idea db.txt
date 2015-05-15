@@ -1,0 +1,5 @@
+parte dati
+	salvare TUTTO, anche se senza place e senza filtri (guarda il dict come è stato fatto) indicizzando le date, poi ti spiego
+	l'id massimo lo salviamo in una tabella a parte, per vitare di fare la ricerca ogni volta
+	la pulizia viene fatta dopo
+	lo script che crea le statistiche le crea con le date, per mese, e dobbiamo lavorare per index, poi ti spiego
