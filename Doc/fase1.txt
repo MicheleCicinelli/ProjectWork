@@ -1,4 +1,4 @@
-Progetto Fase 1
-•	Ricezione tweet contenenti riferimenti ai linguaggi di programmazione e salvataggio su db dei risultati
-•	Analisi numerica dei tweet salvati su db, suddividendo tweet per nazione e poi per linguaggio
-•	Visualizzazione grafica dei risultati per l’intera europa o per singola nazione
+﻿Progetto Fase 1
+•	Ricezione tweet contenenti riferimenti ai linguaggi di programmazione e prima scrematura (python)
+•	Salvataggio dati su primo db (da analizzare) e analisi statistica con salvataggio dei risultati su secondo db (python) (risultati globali indipendenti dalla data) (python)
+•	Visualizzazione grafica dei risultati per l’intera europa o per singola nazione (asp.net)
