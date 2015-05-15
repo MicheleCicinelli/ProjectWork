@@ -1,0 +1,9 @@
+connect to first db
+connect to second db
+get index list
+in last index (each index elemen flags a month, if we get the lastest we get current month, so the one that should be updated)
+	for each nation
+		for each lang
+			count tweets
+		write stats get, with month reference
+close connections
