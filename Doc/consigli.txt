@@ -1,0 +1,5 @@
+fare post filtraggio senza scrematura
+
+sistemare script creazione db
+
+gestione errori e cazzi e mazzi misti
