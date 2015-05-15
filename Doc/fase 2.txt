@@ -1,0 +1,10 @@
+Creazione progetto forma grafica (relazioni e tutto il resto)
+Modifica fase 1 in base a consigli
+Rimozione branch per cognome e creazione fase per fase
+Creazione script che aggiornano i db (sia per dati che per statistiche)
+	aggiungere tabella/modo per salvare l'id più recente salvato per evitare di fare il max su 123456789456123 tuple
+	per le statistiche l'analisi sui mesi potrebbe essere fatta creando una tabella per ogni mese (basta chiamarle YYYY_MM per fare anche delle query semplici e tenere una tabella con i dati totali)
+		cappelari dice che è stupido, aggiungere colonna con mese indicizzata
+	come facciamo per eventuali allert?
+Fare dump delle strutture dei db, e metterli su git
+Adattamento db per la data
