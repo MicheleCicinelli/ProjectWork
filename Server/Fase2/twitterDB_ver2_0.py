@@ -30,7 +30,7 @@ curs = conn.cursor()
 
 for key, value in langs.items():
 	print (key + " tweets...")
-	for status in tweepy.Cursor(api.search, q=value, rpp = 100).items():
+	for status in tweepy.Cursor(api.search, q=value, rpp = 100).items(100):
 	curs.execute('INSERT INTO eutweets (content, prog_lang, created_at, nation, id_str) VALUES (%s, %s, %s, %s, %s)', (status.text, key, status.created_at.date(), status.place.country, status.id_str))
 	conn.commit()
 curs.close()
