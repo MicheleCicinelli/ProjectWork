@@ -1,0 +1,9 @@
+conn to db
+conn to tweepy
+get last id from older tweets
+for lang in langs
+	look for tweet (till we find the one older than our previus last)
+	write tweet to db(check date for place correct index or create a new one)
+change last id (should be the first one we get, check properly how id works)
+close conn to db
+close conn to tweepy

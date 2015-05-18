@@ -1,0 +1,14 @@
+db dati
+	tabella tweets
+		id|content|prog_lang|created_at(indicizzato)|nation
+
+	tabella last_id_str *una sola riga con l'id del tweet più recente
+		date|value
+
+	tabella nations
+		nation_id|nation    oppure     nation_code|nation    oppure    lavoriamo direttamente con nation_code o nation	
+		numerico		       2 lettere tipo IT
+
+db statistiche
+	tabella statistiche
+	nation|javascript|csharp|java|cplusplus|python|visual_basic|ruby|swift|c|html|scala|obj_c|periodo_riferimento(usando l'indicizzazione di prima)
