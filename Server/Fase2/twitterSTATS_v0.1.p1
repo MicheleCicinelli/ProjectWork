@@ -1,0 +1,3 @@
+import psycopg2
+ 
+langs = {"javascript", "csharp", "java", "cplusplus", "python", "visual_basic", "ruby", "swift", "c", "html", "scala", "obj_c", "php"}
