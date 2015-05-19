@@ -24,8 +24,8 @@ langs = {"javascript":"javascript",
 		"obj_c":"Objective-C OR ObjC OR Obj-C",
 		"php":"php"}
 
-conn = psycopg2.connect(user='twitter', password='twitter',
-                            dbname='twitterdb', host='localhost',
+conn = psycopg2.connect(user='twitter', password='tsacs3m',
+                            dbname='dati', host='52.16.148.22',
                             port=5432)
 curs = conn.cursor()
 
