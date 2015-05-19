@@ -1,7 +1,7 @@
 import tweepy
 import psycopg2
  
-auth = tweepy.AppAuthHandler('K0F60xVVT5SkGdf56bjmrDhkD', 'QPw04S5cnTE7rTTZv6eMOPr5pk7PIQ8vA7uFhTn20agWT8f10q')
+auth = tweepy.AppAuthHandler(token, secret)
   
 api = tweepy.API(auth, wait_on_rate_limit=True,
                    wait_on_rate_limit_notify=True)
@@ -30,7 +30,7 @@ curs = conn.cursor()
 
 for key, value in langs.items():
 	print (key + " tweets...")
-	for status in tweepy.Cursor(api.search, q=value, rpp = 100).items():
+	for status in tweepy.Cursor(api.search, q=value, rpp = 100).items(100):
 	curs.execute('INSERT INTO eutweets (content, prog_lang, created_at, nation, id_str) VALUES (%s, %s, %s, %s, %s)', (status.text, key, status.created_at.date(), status.place.country, status.id_str))
 	conn.commit()
 curs.close()

@@ -1,7 +1,7 @@
 import tweepy
 import psycopg2
  
-auth = tweepy.AppAuthHandler('K0F60xVVT5SkGdf56bjmrDhkD', 'QPw04S5cnTE7rTTZv6eMOPr5pk7PIQ8vA7uFhTn20agWT8f10q')
+auth = tweepy.AppAuthHandler(TOKEN, SECRET)
   
 api = tweepy.API(auth, wait_on_rate_limit=True,
                    wait_on_rate_limit_notify=True)
