@@ -1,0 +1,26 @@
+data cleaning:
+
+check last tweet analized (from last_considered table)
+
+start iterate from the next one
+
+if nation is in europe
+	if prog_lang key is in content
+		if content contains one or more keyword
+			write tweet in cleaned table (report the entire tweet, even the id, and remove day from the created_at field)
+			update last_considerate table
+
+
+
+
+
+data analisis:
+
+look if last period analized(last month) is changed or not
+if yes
+	new index voice on statistic table
+	count all the tweets that matches with the periods for each prog_lang
+	insert new tuple in stats table for each lang with this period as time tag
+if not
+	count all the tweets that matches with the periods for each prog_lang
+	update tuple in stats table for each lang with this period as time tag
