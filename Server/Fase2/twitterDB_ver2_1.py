@@ -10,7 +10,7 @@ if (not api):
 	print ("Can't Authenticate")
 	sys.exit(-1)
 
-langs = {"javascript":"javascript",
+langs = {"javascript":"javascript OR js",
 		"csharp":"csharp",
 		"java":"java",
 		"cplusplus":"cplusplus OR cpp",
