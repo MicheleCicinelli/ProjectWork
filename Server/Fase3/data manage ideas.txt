@@ -7,7 +7,7 @@ start iterate from the next one
 if nation is in europe
 	if prog_lang key is in content
 		if content contains one or more keyword
-			write tweet in cleaned table (report the entire tweet, even the id, and remove day from the created_at field)
+			write tweet in cleaned_tweets table (report the entire tweet, even the id, and remove day from the created_at field)
 			update last_considerate table
 
 

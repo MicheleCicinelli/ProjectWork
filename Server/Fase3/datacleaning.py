@@ -16,3 +16,33 @@ for tuple in reader:
 conn.commit()
 curs.close()
 reader.close()
+
+
+"Österreich"
+"België"
+"Hrvatska"
+"Kibris"
+"ceská republika"
+"Danmark"
+"Eesti"
+"Suomi"
+"France"
+"Deutschland"
+"Ελλάδα"
+"Magyarország"
+"Ireland"
+"Italia"
+"Latvia"
+"Lietuva"
+"Luxemburg"
+"Malta"
+"Nederland"
+"Polska"
+"Portugal"
+"România"
+"Slovensko"
+"Slovenija"
+"España"
+"Sverige"
+"United Kingdom"
+"България"
