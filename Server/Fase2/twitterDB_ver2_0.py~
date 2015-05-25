@@ -23,9 +23,9 @@ langs = {"javascript":"javascript",
 		"scala":"scala",
 		"obj_c":"Objective-C OR ObjC OR Obj-C"}
 
-conn = psycopg2.connect(user='', password='',
-                            dbname='', host='',
-                            port=)
+conn = psycopg2.connect(user='twitter', password='twitter',
+                            dbname='twitterdb', host='localhost',
+                            port=5432)
 curs = conn.cursor()
 
 for key, value in langs.items():

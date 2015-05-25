@@ -24,8 +24,8 @@ langs = {"javascript":"javascript OR javascript code OR javascript developer OR 
 		"scala":"scala code OR scala programming OR scala language OR scala developer",
 		"obj_c":"Objective-C OR ObjC OR Obj-C"}
 
-conn = psycopg2.connect(user='', password='',
-                            dbname='', host='',
+conn = psycopg2.connect(user='twitter', password='twitter',
+                            dbname='twitterdb', host='localhost',
                             port=5432)
 curs = conn.cursor()
 

@@ -24,9 +24,9 @@ langs = {"javascript":"javascript",
 		"obj_c":"Objective-C OR ObjC OR Obj-C",
 		"php":"php"}
 while True:
-	conn = psycopg2.connect(user='', password='',
-                            dbname='', host='',
-                            port=)
+	conn = psycopg2.connect(user='twitter', password='tsacs3m',
+	                            dbname='dati', host='localhost',
+	                            port=5432)
 	curs = conn.cursor()
 
 	id_present = False
