@@ -65,11 +65,11 @@ counter.execute("SELECT nation, prog_lang, COUNT(id), year, month FROM cleaned_t
 tuples = counter.fetchall()
 
 for tuple in tuples:
-	placer.execute("SELECT * FROM stats WHERE year = {0} AND month = {1} AND nation = '{2}'".format(tuple[3], tuple[4], tuple[0]))
+	placer.execute("SELECT * FROM stats WHERE year = {0} AND month = {1} AND nation = '{2}'".format(tuple[3], tuple[4], states[tuple[0]]))
 	checker = placer.fetchall()
 	if not checker:
-		placer.execute("INSERT INTO stats (nation,java,c,cplusplus,csharp,javascript,php,python,visual_basic,ruby,swift,html,scala,obj_c,year, month) VALUES (%s,0,0,0,0,0,0,0,0,0,0,0,0,0,%s,%s)",(tuple[0], tuple[3], tuple[4]))
-	placer.execute("UPDATE stats SET {0} = {1} + {2} WHERE nation = '{3}' AND year = {4} AND month = {5}".format(tuple[1], tuple[1], tuple[2], tuple[0], tuple[3], tuple[4]))
+		placer.execute("INSERT INTO stats (nation,java,c,cplusplus,csharp,javascript,php,python,visual_basic,ruby,swift,html,scala,obj_c,year, month) VALUES (%s,0,0,0,0,0,0,0,0,0,0,0,0,0,%s,%s)",(states[tuple[0]], tuple[3], tuple[4]))
+	placer.execute("UPDATE stats SET {0} = {1} + {2} WHERE nation = '{3}' AND year = {4} AND month = {5}".format(tuple[1], tuple[1], tuple[2], states[tuple[0]], tuple[3], tuple[4]))
 	conn.commit()
 
 max_id.execute("UPDATE last_id_analized SET last_analized = %s",(maxid))
