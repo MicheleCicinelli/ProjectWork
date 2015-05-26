@@ -55,23 +55,22 @@ langs = {
 'scala':0,
 'obj_c':0}
 
-id_reader.execute('SELECT last_analized FROM last_id_analized')
+id_reader.execute('SELECT last_analized FROM last_id_analized_v2')
 
 last_id = id_reader.fetchone()
-counter.execute("SELECT nation, prog_lang, COUNT(id), created_at FROM cleaned_tweets WHERE id > %s GROUP BY created_at, nation, prog_lang ORDER BY nation", (last_id))
-max_id.execute("SELECT MAX(id) FROM cleaned_tweets")
+counter.execute("SELECT nation, prog_lang, COUNT(id), year, month FROM cleaned_tweets_v2 WHERE id > %s GROUP BY year, month, nation, prog_lang, year, month ORDER BY nation", (last_id))
+max_id.execute("SELECT MAX(id) FROM cleaned_tweets_v2")
 maxid = max_id.fetchone()
 
 for tuple in counter:
-	placer.execute("SELECT * FROM stats WHERE period = '{0}' AND nation = '{1}'".format(tuple[3], tuple[0]))
-	if not placer.fetchall():
-		placer.execute("INSERT INTO stats (nation,java,c,cplusplus,csharp,javascript,php,python,visual_basic,ruby,swift,html,scala,obj_c,period) VALUES (%s,0,0,0,0,0,0,0,0,0,0,0,0,0,%s)",(states[tuple[0]], tuple[3]))
-		#print("INSERT INTO stats (nation,java,c,cplusplus,csharp,javascript,php,python,visual_basic,ruby,swift,html,scala,obj_c,period) VALUES (%s,0,0,0,0,0,0,0,0,0,0,0,0,0,%s)",(states[tuple[0]], tuple[3]))
-	string = "UPDATE stats SET {0} = {1} + {2} WHERE nation = '{3}' AND period = '{4}'".format(tuple[1], tuple[1], tuple[2], tuple[0], tuple[3])
-	#print(string)
-	updater.execute(string)
+	placer.execute("SELECT * FROM stats_v2 WHERE year = {0} AND month = {1} AND nation = '{2}'".format(tuple[3], tuple[4], tuple[0]))
+	checker = placer.fetchall()
+	if not checker:
+		placer.execute("INSERT INTO stats_v2 (nation,java,c,cplusplus,csharp,javascript,php,python,visual_basic,ruby,swift,html,scala,obj_c,year, month) VALUES (%s,0,0,0,0,0,0,0,0,0,0,0,0,0,%s,%s)",(states[tuple[0]], tuple[3], tuple[4]))
+	updater.execute("UPDATE stats_v2 SET {0} = {1} + {2} WHERE nation = '{3}' AND year = {4} AND month = {5}".format(tuple[1], tuple[1], tuple[2], tuple[0], tuple[3], tuple[4]))
+	conn.commit()
 
-max_id.execute("UPDATE last_id_analized SET last_analized = %s",(maxid))
+max_id.execute("UPDATE last_id_analized_v2 SET last_analized = %s",(maxid))
 conn.commit()
 id_reader.close()
 counter.close()

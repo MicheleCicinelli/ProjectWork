@@ -37,8 +37,7 @@ get_tuples.execute(query)
 for tuple in get_tuples:
 	higher_id = tuple[0]
 	date_tmp = tuple[3].split("-")
-	date = date_tmp[0] + "-" + date_tmp[1]
-	set_tuples.execute('INSERT INTO cleaned_tweets (content, prog_lang, created_at, nation, id_str) VALUES (%s, %s, %s, %s, %s)',(tuple[1], tuple[2], date, tuple[4], tuple[5]))	
+	set_tuples.execute('INSERT INTO cleaned_tweets (content, prog_lang, nation, id_str, year, month) VALUES (%s, %s, %s, %s, %s, %s)',(tuple[1], tuple[2], tuple[4], tuple[5], date_tmp[0], date_tmp[1]))	
 
 select_id.execute('UPDATE last_id_cleaned SET last_cleaned=%s WHERE id=0',[higher_id])
 conn.commit()
