@@ -9,7 +9,7 @@ select_id = conn.cursor()
 get_tuples = conn.cursor()
 set_tuples = conn.cursor()
 
-select_id.execute('SELECT last_analized FROM last_id_cleaned')
+select_id.execute('SELECT last_cleaned FROM last_id_cleaned')
 
 states = {'Österreich', 'België', 'Hrvatska', 'Kibris', 'Ceská Republika', 'Danmark', 'Eesti', 'Suomi', 'France', 'Deutschland', 'Ελλάδα', 'Magyarország', 'Ireland', 'Italia', 'Latvia', 'Lietuva', 'Luxemburg', 'Malta', 'Nederland', 'Polska', 'Portugal', 'România', 'Slovensko', 'Slovenija', 'España', 'Sverige', 'United Kingdom', 'България'}
 keywords = {'program', 'code', 'cod', 'develop', 'computer', 'pc', 'ict', 'it', 'language', 'database', 'db', 'opensource', 'apache', 'tomcat', 'api', 'app', 'css', 'cloud', 'site', 'django', 'cassandra', 'dev', 'arch', 'linux', 'ubuntu', 'deb', 'win', 'csv', 'json', 'software', 'hardware', 'work', 'job', 'hire', 'hiring', 'hack', 'digi', 'xml', 'css'}
@@ -32,8 +32,6 @@ higher_id = last_id
 
 query = 'SELECT * FROM eutweets WHERE id >' + str(last_id) + ' ' + key_like + ' ' + state_like
 
-print(query)
-
 get_tuples.execute(query)
 
 for tuple in get_tuples:
@@ -42,7 +40,7 @@ for tuple in get_tuples:
 	date = date_tmp[0] + "-" + date_tmp[1]
 	set_tuples.execute('INSERT INTO cleaned_tweets (content, prog_lang, created_at, nation, id_str) VALUES (%s, %s, %s, %s, %s)',(tuple[1], tuple[2], date, tuple[4], tuple[5]))	
 
-select_id.execute('UPDATE last_id_cleaned SET last_analized=%s WHERE id=0',[higher_id])
+select_id.execute('UPDATE last_id_cleaned SET last_cleaned=%s WHERE id=0',[higher_id])
 conn.commit()
 select_id.close()
 get_tuples.close()
