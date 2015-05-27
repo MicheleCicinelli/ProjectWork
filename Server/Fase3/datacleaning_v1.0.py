@@ -4,7 +4,6 @@ import psycopg2
 
 conn = psycopg2.connect(user='twitter', password='tsacs3m', dbname='dati', host='52.16.148.22', port=5432)
 
-
 select_id = conn.cursor()
 get_tuples = conn.cursor()
 set_tuples = conn.cursor()
