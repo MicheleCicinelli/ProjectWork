@@ -9,7 +9,7 @@ def getTuples():
 
 	idC.execute('SELECT last_analized FROM last_id_analized')
 	max_id.execute("SELECT MAX(id) FROM cleaned_tweets")
-#	max_id.execute("UPDATE last_id_analized SET last_analized = %s",(max_id.fetchone()))
+	max_id.execute("UPDATE last_id_analized SET last_analized = %s",(max_id.fetchone()))
 
 	id = idC.fetchone()
 
