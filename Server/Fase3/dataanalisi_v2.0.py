@@ -2,6 +2,10 @@
 
 import psycopg2
 
+import datetime
+
+now = datetime.datetime.now()
+
 def getTuples():
 	counter = conn.cursor()
 	idC = conn.cursor()
@@ -11,11 +15,11 @@ def getTuples():
 	max_id.execute("SELECT MAX(id) FROM cleaned_tweets")
 	max_id.execute("UPDATE last_id_analized SET last_analized = %s",(max_id.fetchone()))
 
-	id = idC.fetchone()
+	#id = idC.fetchone()
+	id = None
 
 	query = "SELECT nation, prog_lang, COUNT(id), year, month FROM cleaned_tweets WHERE id > {0} GROUP BY year, month, nation, prog_lang, year, month ORDER BY nation".format(id[0])
 	counter.execute(query)
-
 
 	tuples = counter.fetchall()
 
@@ -50,7 +54,11 @@ def setTuples(tuples):
 	return("Cycle ended")
 
 if __name__ == '__main__':
-	conn = psycopg2.connect(user='twitter', password='tsacs3m', dbname='dati', host='52.16.148.22', port=5432)
-	print(setTuples(getTuples()))
-	conn.commit()
-	conn.close()
+	try:
+		conn = psycopg2.connect(user='twitter', password='tsacs3m', dbname='dati', host='52.16.148.22', port=5432)
+		print(setTuples(getTuples()))
+	except psycopg2.Error as err:
+		print(str(now.strftime("%Y-%m-%d %H:%M:%S")) + "\n" + "Psycopg2 exception" + "\n" + str(err.pgcode) + "\n" + str(err.pgerror))
+	finally:
+#		conn.commit()
+		conn.close()
