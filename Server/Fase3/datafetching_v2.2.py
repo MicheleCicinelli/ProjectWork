@@ -1,7 +1,7 @@
 import tweepy
 import psycopg2
  
-auth = tweepy.AppAuthHandler('3Iy7JTSe2syWNOLOZF9ojoxH0', 'mS4ugxx0z7KuW2D8vG7LAmYC6lN2uhyp3VcvyrUNWjKlQhtua0')
+auth = tweepy.AppAuthHandler(TOKEN, SECRET)
   
 api = tweepy.API(auth, wait_on_rate_limit=True,
                    wait_on_rate_limit_notify=True)
@@ -24,8 +24,9 @@ langs = {"javascript":"javascript OR js",
 		"obj_c":"Objective-C OR ObjC OR Obj-C",
 		"php":"php"}
 
-conn = psycopg2.connect(user='twitter', password='tsacs3m',
-                            dbname='dati', host='localhost',
+
+conn = psycopg2.connect(user='', password='',
+                            dbname='', host='localhost',
                             port=5432)
 curs = conn.cursor()
 

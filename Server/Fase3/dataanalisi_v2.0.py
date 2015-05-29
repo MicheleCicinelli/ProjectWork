@@ -50,7 +50,7 @@ def setTuples(tuples):
 	return("Cycle ended")
 
 if __name__ == '__main__':
-	conn = psycopg2.connect(user='twitter', password='tsacs3m', dbname='dati', host='localhost', port=5432)
+	conn = psycopg2.connect(user='', password='', dbname='', host='localhost', port=5432)
 	print(setTuples(getTuples()))
 	conn.commit()
 	conn.close()
