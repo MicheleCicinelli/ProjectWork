@@ -25,7 +25,7 @@ langs = {"javascript":"javascript OR js",
 		"php":"php"}
 
 conn = psycopg2.connect(user='twitter', password='tsacs3m',
-                            dbname='dati', host='52.16.148.22',
+                            dbname='dati', host='localhost',
                             port=5432)
 curs = conn.cursor()
 
