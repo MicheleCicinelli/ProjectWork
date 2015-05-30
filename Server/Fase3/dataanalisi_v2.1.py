@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import psycopg2
+import sys
 
 def getTuples():
 	counter = conn.cursor()
@@ -52,7 +53,19 @@ def setTuples(tuples):
 	return("Cycle ended")
 
 if __name__ == '__main__':
+<<<<<<< HEAD
+	try:
+		conn = psycopg2.connect(user='twitter', password='tsacs3m', dbname='dati', host='52.16.148.22', port=5432)
+		print(setTuples(getTuples()))
+	except:
+		e = sys.exc_info()[0]
+		print("Error -----> :" + str(e))
+	finally:
+		conn.commit()
+		conn.close()
+=======
 	conn = psycopg2.connect(user='', password='', dbname='', host='localhost', port=5432)
 	print(setTuples(getTuples()))
 	conn.commit()
 	conn.close()
+>>>>>>> master
