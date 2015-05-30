@@ -4,7 +4,7 @@ connessione con psycopg2 al db
 query per prendere i linguaggi e words di ricerca per fetch dei tweets
 per ogni linguaggio cerco i tweets fino all'ultimo fetchato nella ricerca precedente
 Per ogni tweet trovato, se ha il place, lo salvo del primo db (tweets sporchi)
-per ogni linguaggio salvo il tweet più recente
+per ogni linguaggio salvo l'id dell'ultimo tweet archiviato
 
 cleaning
 connessione con psycopg2 al db
