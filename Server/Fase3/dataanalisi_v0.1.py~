@@ -2,7 +2,7 @@
 
 import psycopg2
 
-conn = psycopg2.connect(user='', password='', dbname='', host='localhost', port=5432)
+conn = psycopg2.connect(user='twitter', password='tsacs3m', dbname='dati', host='localhost', port=5432)
 
 id_reader = conn.cursor()
 counter = conn.cursor()
