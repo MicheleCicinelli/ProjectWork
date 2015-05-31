@@ -68,7 +68,7 @@ def get_tweets(api):
 		print(str(count) + " tweets!")
 
 
-	except tweepy.TweepError as e:
+	except (tweepy.TweepError, psycopg2.Error) as e:
 		raise e
 	finally:
 		curs.close()
@@ -82,7 +82,7 @@ if __name__ == '__main__':
     import os
     import sys
 
-    print("TwitterDB ver 2.5")
+    print("TwitterDB ver 2.4")
     print("START")
     auth = get_auth(consumer, app)
     #print(get_tweets())
