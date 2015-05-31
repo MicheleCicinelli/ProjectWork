@@ -72,7 +72,7 @@ def setTuples(tuples):
 if __name__ == '__main__':
 <<<<<<< HEAD
 	try:
-		conn = psycopg2.connect(user='twitter', password='tsacs3m', dbname='dati', host='52.16.148.22', port=5432)
+		conn = psycopg2.connect(user='', password='', dbname='dati', host='', port=5432)
 		print(setTuples(getTuples()))
 	except:
 		e = sys.exc_info()[0]
