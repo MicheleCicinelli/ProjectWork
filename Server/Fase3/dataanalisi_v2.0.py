@@ -56,7 +56,7 @@ def setTuples(tuples):
 if __name__ == '__main__':
 <<<<<<< HEAD
 	try:
-		conn = psycopg2.connect(user='twitter', password='tsacs3m', dbname='dati', host='52.16.148.22', port=5432)
+		conn = psycopg2.connect(user='', password='', dbname='', host='', port=5432)
 		print(setTuples(getTuples()))
 	except psycopg2.Error as err:
 		print(str(now.strftime("%Y-%m-%d %H:%M:%S")) + "\n" + "Psycopg2 exception" + "\n" + str(err.pgcode) + "\n" + str(err.pgerror))
