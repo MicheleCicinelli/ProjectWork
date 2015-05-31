@@ -4,7 +4,7 @@ import psycopg2
 
 if __name__ == '__main__':
 
-	conn = psycopg2.connect(user='twitter', password='tsacs3m', dbname='dati', host='52.16.148.22', port=5432)
+	conn = psycopg2.connect(user='', password='', dbname='', host='', port=5432)
 
 	idC = conn.cursor()
 	statesC = conn.cursor()
