@@ -82,7 +82,7 @@ if __name__ == '__main__':
     import os
     import sys
 
-    print("TwitterDB ver 2.4")
+    print("TwitterDB ver 2.6")
     print("START")
     auth = get_auth(consumer, app)
     #print(get_tweets())
