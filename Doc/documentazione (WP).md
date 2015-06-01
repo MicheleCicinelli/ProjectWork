@@ -1,5 +1,4 @@
 # Twitter DB
-============
 
 	Compatibile con Python 3.4
 
