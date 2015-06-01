@@ -9,7 +9,6 @@
 
 
 ## Data Fetching:
------------------
 
  * Ricerca:
 	Ricerca tramite script in python, utilizzando la libreria "tweepy", dei tweets a livello globale che contengono parole chiave 
@@ -28,6 +27,5 @@
 
 
 ## Data Analisys:
------------------
 
 	 
