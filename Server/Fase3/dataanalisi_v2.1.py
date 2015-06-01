@@ -51,8 +51,8 @@ def setTuples(tuples):
 				placer.execute(query)
 			query = "UPDATE stats_v2 SET tweets = tweets + {0} WHERE nation = '{1}' AND year = {2} AND month = {3} AND prog_lang = '{4}'".format(tuple[4], states[tuple[0]], tuple[1], tuple[2], tuple[3])
 			placer.execute(query)
-	
-	return("Cycle ended, statistics updated.")
+			
+		return("Cycle ended, statistics updated.")
 
 	except psycopg2.Error as e:
 		raise e

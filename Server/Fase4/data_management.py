@@ -17,7 +17,7 @@ def get_auth(consumer_key, app_secret):
 
 def get_tweets(api):
 	try:	
-		conn = psycopg2.connect(user='', password='', dbname='', host='', port=5432)
+		conn = psycopg2.connect(user='', password='', dbname='dati', host='', port=5432)
 
 		curs = conn.cursor()
 
@@ -141,7 +141,8 @@ def setTuples_cleaning(tuples):
 		count = 0
 
 		for tuple in tuples:
-			higher_id = tuple[0]
+			if tuple[0] > higher_id:
+				higher_id = tuple[0]
 			date_tmp = tuple[3].split("-")
 			set_tuples.execute('INSERT INTO cleaned_tweets (content, prog_lang, nation, id_str, year, month) VALUES (%s, %s, %s, %s, %s, %s)',(tuple[1], tuple[2], tuple[4], tuple[5], date_tmp[0], date_tmp[1]))	
 			count += 1
@@ -157,6 +158,9 @@ def setTuples_cleaning(tuples):
 		idC.close()
 		set_tuples.close()
 
+		conn.commit()
+		conn.close()
+
 def getTuples_analysis():
 	try:
 		conn = psycopg2.connect(user='', password='', dbname='dati', host='', port=5432)
@@ -166,7 +170,8 @@ def getTuples_analysis():
 
 		idC.execute('SELECT last_analized FROM last_id_analized_v2')
 		max_id.execute("SELECT MAX(id) FROM cleaned_tweets")
-		max_id.execute("UPDATE last_id_analized_v2 SET last_analized = %s",(max_id.fetchone()))
+		m_id = max_id.fetchone()
+		max_id.execute("UPDATE last_id_analized_v2 SET last_analized = %s",(m_id))
 
 		id = idC.fetchone()
 
@@ -201,17 +206,22 @@ def setTuples_analysis(tuples):
 		for st in states_tmp:
 			states[st[0]] = st[1]
 
+		ins_count = 0
+		upd_count = 0
+
 		for tuple in tuples:
 			query = "SELECT * FROM stats_v2 WHERE year = {0} AND month = {1} AND nation = '{2}' AND prog_lang = '{3}'".format(tuple[1], tuple[2], states[tuple[0]], tuple[3])
 			placer.execute(query)
 			checker = placer.fetchall()
 			if not checker:
-				query = "INSERT INTO stats_v2 (nation, prog_lang, tweets, year, month) VALUES ('{0}','{1}',0,{2},{3})".format(states[tuple[0]], tuple[3], tuple[1], tuple[2])
-				placer.execute(query)
-			query = "UPDATE stats_v2 SET tweets = tweets + {0} WHERE nation = '{1}' AND year = {2} AND month = {3} AND prog_lang = '{4}'".format(tuple[4], states[tuple[0]], tuple[1], tuple[2], tuple[3])
-			placer.execute(query)
-	
-	return("Cycle ended, statistics updated.")
+				query1 = "INSERT INTO stats_v2 (nation, prog_lang, tweets, year, month) VALUES ('{0}','{1}',0,{2},{3})".format(states[tuple[0]], tuple[3], tuple[1], tuple[2])
+				placer.execute(query1)
+				ins_count += 1
+			query2 = "UPDATE stats_v2 SET tweets = tweets + {0} WHERE nation = '{1}' AND year = {2} AND month = {3} AND prog_lang = '{4}'".format(tuple[4], states[tuple[0]], tuple[1], tuple[2], tuple[3])
+			placer.execute(query2)
+			upd_count += 1
+
+		return("Cycle ended, {0} statistics updated ({1} new elements).".format(upd_count, ins_count))
 
 	except psycopg2.Error as e:
 		raise e
@@ -227,7 +237,7 @@ if __name__ == '__main__':
 	
 	print("Data fetching v2.6")
 	print("START")
-	auth = get_auth(consumer, app)
+	auth = get_auth(key, secret)
 	get_tweets(auth)
 	print("END")
 
