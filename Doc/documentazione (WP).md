@@ -25,6 +25,11 @@ Dipendenze:
 	[twitter dev](https://dev.twitter.com/rest/public/rate-limiting)), lo script rimarrà in attesa (sleeping) fino a quando non verrà superato il tempo di attesa.
 
 
-## Data Analisys:
+## Data Cleaning:
+ * Tramite script, sempre in python, prelevo i tweets presenti nella tabella "eutweets" tramite una query che seleziona , mediante il parametro WHERE solo i tweets sporchi provenienti da uno stato europeo, e che all'interno del testo del tweet contengono almeno una delle parole utilizzate come filtro per la white list. 
+La query viene generata utilizzando due database, in maniera tale potere aggiungere o rimiovere elementi senza effettuare modifiche al codice.
+Per velocizzare il processo di cleaning ad ogni chiamata dello script vengono presi solo i tweets successivi all'ultimo analizzato la chiamata precedente, salvando questo dato, ed aggiornandolo ad ongi nuova esecuzione, nella tabella "last_id_cleaned"
 
-	 
+
+## Data Analysis
+ * Utilizzando uno script simile a quello per il cleaning, con le stesse logiche sull'id per la velocizzazione, analizzo uno per uno i tweet puliti, verificando il linguaggio di riferimento, la nazione di provenienza e il periodo in cui sono stati postati (anno e mese), dopodichè verifico se nella tabella stats esiste gia un dato di riferimento. se esite verrà aggiornato, altrimenti verrà creato un nuovo record, che poi verrà aggiornato
