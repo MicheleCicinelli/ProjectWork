@@ -3,9 +3,8 @@
 Compatibile con Python 3.4
 
 Dipendenze:
-[tweepy v3.2](http://tweepy.readthedocs.org/en/v3.2.0/)
-
-[psycopg2 v2.6](http://initd.org/psycopg/docs/)
+ * [tweepy v3.2](http://tweepy.readthedocs.org/en/v3.2.0/)
+ * [psycopg2 v2.6](http://initd.org/psycopg/docs/)
 
 
 ## Data Fetching:
