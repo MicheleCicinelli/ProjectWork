@@ -1,0 +1,20 @@
+﻿<div id="pnl"></div>
+
+@section scripts {
+    <script type="text/javascript">
+        var pnl = $("#pnl");
+
+
+        $.ajax({
+            url: '/api/Statistics',
+            type: 'GET',
+            dataType: 'json'
+        }).done(function (data) {
+            for (var i = 0; i < data.length; i++) {
+                pnl.html()
+            }
+        }).error(function (e) {
+            alert("errore")
+        })
+    </script>
+}
