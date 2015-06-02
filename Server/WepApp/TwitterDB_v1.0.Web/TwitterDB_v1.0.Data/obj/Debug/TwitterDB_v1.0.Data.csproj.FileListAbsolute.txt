@@ -1,0 +1,6 @@
+c:\users\michele\documents\visual studio 2013\Projects\TwitterDB_v1.0.Web\TwitterDB_v1.0.Data\bin\Debug\TwitterDB_v1.0.Data.dll
+c:\users\michele\documents\visual studio 2013\Projects\TwitterDB_v1.0.Web\TwitterDB_v1.0.Data\bin\Debug\TwitterDB_v1.0.Data.pdb
+c:\users\michele\documents\visual studio 2013\Projects\TwitterDB_v1.0.Web\TwitterDB_v1.0.Data\bin\Debug\Npgsql.dll
+c:\users\michele\documents\visual studio 2013\Projects\TwitterDB_v1.0.Web\TwitterDB_v1.0.Data\bin\Debug\Npgsql.xml
+c:\users\michele\documents\visual studio 2013\Projects\TwitterDB_v1.0.Web\TwitterDB_v1.0.Data\obj\Debug\TwitterDB_v1.0.Data.dll
+c:\users\michele\documents\visual studio 2013\Projects\TwitterDB_v1.0.Web\TwitterDB_v1.0.Data\obj\Debug\TwitterDB_v1.0.Data.pdb

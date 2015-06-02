@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewBag.Title = "AllByYear";
+}
+
+<h2>Per Anno</h2>
+<br /><br />
+<div id="pnlResult"></div>
+
+
+
+@section scripts {
+
+    <script type="text/javascript">
+
+        var pnlResult = $("#pnlResult");
+
+        $.ajax({
+            url: "/api/Statistics/@ViewBag.Year",
+            type: "GET",
+            dataType: "json"
+        }).done(function (data) {
+
+            for (var i = 0; i < data.length; i++) {
+                var item = data[i];
+
+                
+                html += "<div>" + item.Nation + "</div>";
+                html += "<div>" + item.Prog_lang + "</div>";
+                html += "<div>" + item.Tweets + "</div>";
+                html += "<div>" + item.Month + "</div>";
+               
+
+                html += "<hr />"
+            }
+
+            pnlResult.html(html);
+        }).error(function (e) {
+            alert("error");
+        })
+
+
+    </script>
+
+
+}
+
+
