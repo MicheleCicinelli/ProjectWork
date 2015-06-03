@@ -79,13 +79,13 @@ namespace S3M.ProjectWork.Data
             }
         }
 
-        public IEnumerable<Statistics> GetYearAndMonth()
+        public IEnumerable<Statistics> GetYears()
         {
             using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
             {
                 connection.Open();
 
-                string query = @"SELECT year, month FROM stats_v2 GROUP BY year, month ORDER BY year, month ASC";
+                string query = @"SELECT year FROM stats_v2 GROUP BY year ORDER BY year ASC";
 
                 using (NpgsqlCommand command = connection.CreateCommand())
                 {
@@ -101,6 +101,35 @@ namespace S3M.ProjectWork.Data
                         Statistics statistic = new Statistics();
 
                         statistic.Year = Convert.ToInt32(reader["year"]);
+
+                        statistics.Add(statistic);
+                    }
+                    return statistics;
+                }
+            }
+        }
+
+        public IEnumerable<Statistics> GetMonths()
+        {
+            using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+            {
+                connection.Open();
+
+                string query = @"SELECT month FROM stats_v2 GROUP BY month ORDER BY month ASC";
+
+                using (NpgsqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = query;
+                    command.CommandType = CommandType.Text;
+
+                    NpgsqlDataReader reader = command.ExecuteReader();
+
+                    List<Statistics> statistics = new List<Statistics>();
+
+                    while (reader.Read())
+                    {
+                        Statistics statistic = new Statistics();
+
                         statistic.Month = Convert.ToInt32(reader["month"]);
 
                         statistics.Add(statistic);

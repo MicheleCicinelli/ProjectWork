@@ -14,10 +14,20 @@ namespace S3M.ProjectWork.Web.Controllers
         public IHttpActionResult Get()
         {
             DataAccess data = new DataAccess();
-            var products = data.GetYearAndMonth();
+            var products1 = data.GetYears();
+            var products2 = data.GetMonths();
 
             List<StatisticsModel> result = new List<StatisticsModel>();
-            foreach (var item in products)
+            foreach (var item in products1)
+            {
+                StatisticsModel statistic = new StatisticsModel();
+                statistic.Year = item.Year;
+                statistic.Month = item.Month;
+
+                result.Add(statistic);
+            }
+
+            foreach (var item in products2)
             {
                 StatisticsModel statistic = new StatisticsModel();
                 statistic.Year = item.Year;

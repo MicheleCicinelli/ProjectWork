@@ -108,7 +108,8 @@
 
             for (var i = 0; i < data.length; i++) {
                 var item = data[i];
-                html += '<option value="' + item.Month + '">' + item.Month + '</option>';
+                if(item.Month != null)
+                    html += '<option value="' + item.Month + '">' + item.Month + '</option>';
             }
 
             html += '</select>';
@@ -117,7 +118,8 @@
 
             for (var i = 0; i < data.length; i++) {
                 var item = data[i];
-                html += '<option value="' + item.Year + '">' + item.Year + '</option>';
+                if (item.Year != null)
+                    html += '<option value="' + item.Year + '">' + item.Year + '</option>';
             }
 
             html += '</select>';
