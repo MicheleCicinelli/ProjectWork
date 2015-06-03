@@ -5,6 +5,23 @@ import psycopg2
 import os
 import sys
 
+consumer = ''
+app = ''
+
+def conn_psyc2():
+	with open('params.config', 'r') as fileIN:
+		separator= ":"
+		line = fileIN.readline()
+		val = line.split(separator)
+		userf = val[0]
+		passwdf = val[1]
+		dbnamef = val[2]
+		hostf = val[3]
+
+
+	return psycopg2.connect(user = userf, password = passwdf, dbname = dbnamef, host = hostf, port = 5432)
+
+
 def get_auth(consumer_key, app_secret):
 	try:
 		auth = tweepy.AppAuthHandler(consumer_key, app_secret)
@@ -17,7 +34,7 @@ def get_auth(consumer_key, app_secret):
 
 def get_tweets(api):
 	try:	
-		conn = psycopg2.connect(user='', password='', dbname='dati', host='', port=5432)
+		conn = conn_psyc2()
 
 		curs = conn.cursor()
 
@@ -41,7 +58,7 @@ def get_tweets(api):
 			
 			curs.execute(stringa)
 			last_id = curs.fetchone()
-			for status in tweepy.Cursor(api.search, q=value, count = 100, since_id = last_id[0]).items(10):
+			for status in tweepy.Cursor(api.search, q=value, count = 100, since_id = last_id[0]).items(10000):
 				
 				if id_present == False:
 					
@@ -113,7 +130,7 @@ def createStringForClean():
 
 def getTuples_cleaning():
 	try:
-		conn = psycopg2.connect(user='', password='', dbname='dati', host='', port=5432)
+		conn = conn_psyc2()
 		get_toClean = conn.cursor()
 		get_toClean.execute(createStringForClean())
 		toReturn = get_toClean.fetchall()
@@ -132,7 +149,7 @@ def getTuples_cleaning():
 def setTuples_cleaning(tuples):
 
 	try:
-		conn = psycopg2.connect(user='', password='', dbname='dati', host='', port=5432)
+		conn = conn_psyc2()
 		idC = conn.cursor()
 		set_tuples = conn.cursor()
 
@@ -163,7 +180,7 @@ def setTuples_cleaning(tuples):
 
 def getTuples_analysis():
 	try:
-		conn = psycopg2.connect(user='', password='', dbname='dati', host='', port=5432)
+		conn = conn_psyc2()
 		counter = conn.cursor()
 		idC = conn.cursor()
 		max_id = conn.cursor()
@@ -195,7 +212,7 @@ def getTuples_analysis():
 
 def setTuples_analysis(tuples):
 	try:
-		conn = psycopg2.connect(user='', password='', dbname='dati', host='', port=5432)
+		conn = conn_psyc2()
 		statesC = conn.cursor()
 		placer = conn.cursor()
 		
@@ -237,15 +254,13 @@ if __name__ == '__main__':
 	
 	print("Data fetching v2.6")
 	print("START")
-	auth = get_auth(key, secret)
+	auth = get_auth(consumer, app)
 	get_tweets(auth)
 	print("END")
-
 	print("Data cleaning v2.0")
 	print("START")
 	print(setTuples_cleaning(getTuples_cleaning()))
 	print("END")
-
 	print("Data analysis v2.1")
 	print("START")
 	print(setTuples_analysis(getTuples_analysis()))
