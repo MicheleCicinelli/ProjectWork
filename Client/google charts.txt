@@ -1,0 +1,34 @@
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<div id="chart" style="width: 900px; height: 500px;">zero</div>            
+google.load("visualization", "1", { packages: ["corechart"] });
+            google.setOnLoadCallback(drawChart);
+
+            function drawChart() {
+                $.ajax({
+                    url: '/api/Statistics',
+                    type: 'GET',
+                    dataType: 'json'
+                }).done(function (data) {
+
+                    var dict = [['Programming_Language', 'Number_of_tweets']];
+
+                    for (var i = 0; i < data.length; i++) {
+                        var item = data[i]
+                        dict.push([item.Prog_Lang, item.Tweets]);
+                    }
+
+                    var data = google.visualization.arrayToDataTable(dict);
+
+                    var options = {
+                        title: 'Most popular programming languages',
+                        pieHole: 0.4,
+                    };
+
+                    var chart = new google.visualization.PieChart(document.getElementById('chart'));
+
+                    chart.draw(data, options);
+
+                }).error(function (e) {
+                    alert("errore")
+                })
+            }
