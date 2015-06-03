@@ -14,24 +14,20 @@ namespace S3M.ProjectWork.Web.Controllers
             return View();
         }
 
-        // GET: Filters
-        public ActionResult NationStats( int whichget, string param)
+        public ActionResult NationStats(string nation)
         {
-            ViewBag.Param = param;
-            ViewBag.Whichget = whichget;
+            ViewBag.Nation = nation;
             return View();
         }
 
         // GET: Filters
-        public ActionResult LangStats(int whichget, string param)
+        public ActionResult LangStats(string lang)
         {
-            ViewBag.Param = param;
-            ViewBag.Whichget = whichget;
+            ViewBag.Lang = lang;
             return View();
         }
 
-        // GET: Filters
-        public ActionResult periodStats(int year, int month)
+        public ActionResult PeriodStats(int year, int month)
         {
             ViewBag.Year = year;
             ViewBag.Month = month;

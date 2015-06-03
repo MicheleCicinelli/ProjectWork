@@ -2,7 +2,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-offset-2 col-md-2">
-            <div class="btn btn-default" id="eustats">European Stats</div>
+            <div class="btn btn-default" id="eustats">Statistiche Europee</div>
         </div>
     </div>
     <hr />
@@ -11,7 +11,7 @@
             <div id="nationlist"></div>
         </div>
         <div class="col-md-2">
-            <div class="btn btn-default" id="statsbynation">Nation Stats</div>
+            <div class="btn btn-default" id="statsbynation">Statistiche Per Nazione</div>
         </div>
     </div>
     <hr />
@@ -20,16 +20,16 @@
             <div id="langlist"></div>
         </div>
         <div class="col-md-2">
-            <div class="btn btn-default" id="statsbylang">Prog Stats</div>
+            <div class="btn btn-default" id="statsbylang">Statistiche Geografiche Per Linguaggio</div>
         </div>
     </div>
     <hr />
     <div class="row">
         <div class="col-md-2">
-            <div id="periodlist"></div>
+            <div id="period"></div>
         </div>
         <div class="col-md-2">
-            <div class="btn btn-default" id="statsbyperiod">Period Stats</div>
+            <div class="btn btn-default" id="statsbyperiod">Statistiche Per Periodo</div>
         </div>
     </div>
 </div>
@@ -46,11 +46,11 @@
 
         var statsbyperiod = $('#statsbyperiod');
 
-        var nationlist = $('#nationlist');      
+        var nationlist = $('#nationlist');
 
         var langlist = $('#langlist');
 
-        var periodlist = $('#periodlist');
+        var period = $('#period');
 
         //creazione elenco nazioni
         $.ajax({
@@ -76,7 +76,7 @@
 
         //creazione elenco linguaggi
         $.ajax({
-            url: '/api/Prog',
+            url: '/api/Lang',
             type: 'GET',
             dataType: 'json'
         }).done(function (data) {
@@ -96,7 +96,7 @@
             alert("errore")
         })
 
-        //creazione elenco periodi 
+        //creazione elenco periodi
         $.ajax({
             url: '/api/Yem',
             type: 'GET',
@@ -122,7 +122,7 @@
 
             html += '</select>';
 
-            periodlist.html(html);
+            period.html(html);
         }).error(function (e) {
             alert("errore")
         })
@@ -130,8 +130,9 @@
         function gettingvals() {
             var nationpicker = $('#nationpicker');
             var langpicker = $('#langpicker');
-            var yearpicker = $('#yearpicker');
-            var monthpicker = $('#monthpicker');
+
+            var yearpickerS = $('#yearpicker');
+            var monthpickerS = $('#monthpicker');
         }
 
         eustats.on('click', function () {
@@ -139,17 +140,16 @@
         });
 
         statsbynation.on('click', function () {
-            window.location.href = "/Filters/NationStats?whichget=1&param='" + nationpicker.value + "'";
+            window.location.href = "/Filters/NationStats?nation=" + nationpicker.value;
         });
 
         statsbylang.on('click', function () {
-            window.location.href = "/Filters/LangStats?whichget=2&param='" + langpicker.value + "'";
+            window.location.href = "/Filters/LangStats?lang=" + langpicker.value;
         });
 
         statsbyperiod.on('click', function () {
-            window.location.href = "/Filters/LangStats?whichget=2&param='" + langpicker.value + "'";
+            window.location.href = "/Filters/PeriodStats?year=" + yearpicker.value + "&month=" + monthpicker.value;
         });
-
 
     </script>
 }

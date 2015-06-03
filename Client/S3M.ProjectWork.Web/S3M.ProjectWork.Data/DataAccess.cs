@@ -147,15 +147,16 @@ namespace S3M.ProjectWork.Data
             {
                 connection.Open();
 
-                string query = @"SELECT prog_lang, SUM(tweets) FROM stats_v2 WHERE nation = '%nation' GROUP BY prog_lang";
+                string query = "SELECT prog_lang, SUM(tweets) FROM stats_v2 WHERE nation = @nation GROUP BY prog_lang";
+
+                Console.WriteLine(query);
 
                 using (NpgsqlCommand command = connection.CreateCommand())
                 {
                     command.CommandText = query;
                     command.CommandType = CommandType.Text;
 
-                    NpgsqlParameter param = new NpgsqlParameter("%nation", nation);
-                    command.Parameters.Add(param);
+                    command.Parameters.AddWithValue("@nation", nation);
 
                     NpgsqlDataReader reader = command.ExecuteReader();
 
@@ -181,15 +182,14 @@ namespace S3M.ProjectWork.Data
             {
                 connection.Open();
 
-                string query = @"SELECT nation, SUM(tweets) FROM stats_v2 WHERE prog_lang = '%lang' GROUP BY nation";
+                string query = @"SELECT nation, SUM(tweets) FROM stats_v2 WHERE prog_lang = @lang GROUP BY nation";
 
                 using (NpgsqlCommand command = connection.CreateCommand())
                 {
                     command.CommandText = query;
                     command.CommandType = CommandType.Text;
 
-                    NpgsqlParameter param = new NpgsqlParameter("%lang", lang);
-                    command.Parameters.Add(param);
+                    command.Parameters.AddWithValue("@lang", lang);
 
                     NpgsqlDataReader reader = command.ExecuteReader();
 
@@ -199,7 +199,7 @@ namespace S3M.ProjectWork.Data
                     {
                         Statistics statistic = new Statistics();
 
-                        statistic.Prog_Lang = reader["nation"] as string;
+                        statistic.Nation = reader["nation"] as string;
                         statistic.Tweets = Convert.ToInt32(reader["sum"]);
 
                         statistics.Add(statistic);
@@ -209,10 +209,40 @@ namespace S3M.ProjectWork.Data
             }
         }
 
-        public IEnumerable<Statistics> GetGenericStatsByPeriod(int year, int month)
+        public IEnumerable<Statistics> GetStatsByYearMonth(int year, int month)
         {
-            return null;
+            using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+            {
+                connection.Open();
+
+                string query = @"SELECT prog_lang, SUM(tweets) FROM stats_v2 WHERE year = @year and month = @month GROUP BY prog_lang";
+
+                using (NpgsqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = query;
+                    command.CommandType = CommandType.Text;
+
+                    command.Parameters.AddWithValue("@year", year);
+                    command.Parameters.AddWithValue("@month", month);
+
+                    NpgsqlDataReader reader = command.ExecuteReader();
+
+                    List<Statistics> statistics = new List<Statistics>();
+
+                    while (reader.Read())
+                    {
+                        Statistics statistic = new Statistics();
+
+                        statistic.Prog_Lang = reader["prog_lang"] as string;
+                        statistic.Tweets = Convert.ToInt32(reader["sum"]);
+
+                        statistics.Add(statistic);
+                    }
+                    return statistics;
+                }
+            }
         }
     }
 }
+
 

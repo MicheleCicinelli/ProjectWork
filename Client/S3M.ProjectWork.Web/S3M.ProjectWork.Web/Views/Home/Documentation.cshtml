@@ -1,0 +1,107 @@
+﻿@{
+    ViewBag.Title = "Documentation";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Data Fetching</h4>
+            <p>
+                La ricerca viene effettuata tramite script in python, utilizzando la libreria "tweepy", dei tweets a
+                livello globale che contengono parole chiave riconducibili ai linguaggi di programmazione desiderati
+                presenti in una lista all'interno della tabella "keywords" e presentano la voce "place" così da poterne
+                determinare l'origine. I tweets che rispettano questi parametri vengono salvati nella tabella "eutweets".
+                Per ogni linguaggio viene salvato nella tabella "last_id" l'ultimo id del tweet archiviato così da migliorare
+                la ricerca al prossimo avvio dello script che partirà dal più recente tweet nel DB Twitter avanzando per 10.000
+                elementi cercando di raggiungere il "last_id" inerente al linguaggio cercato. Nel momento in cui viene raggiunto
+                il numero massimo di richieste a Twitter (riferimento alla documentazione ufficiale twitter dev), lo script rimarrà
+                in attesa (sleeping) fino a quando non verrà superato il tempo di attesa.
+            </p>
+            <code>Autentizazione alle API di Twitter mediante Tweepy</code>
+            <pre>
+auth = tweepy.AppAuthHandler(consumer_key, app_secret)
+api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
+return api
+            </pre>
+            <code>return api</code> è l'elemento che contiene i riferimenti all'autenteticazione su twitter.
+            <br />
+            <pre>
+tweepy.Cursor(api.search, q=value, count = 100, since_id = last_id[0]).items(0):
+            </pre>
+            Questo è il cuore del fetching, ovvero l'elemento che fa le richieste e torna al programma i risultati.<br />
+            I parametri che utilizziamo sono<br />
+            <code>q=value</code>, che contiene la parola da ricercare,<br />
+            <code>count = 100</code>, il numero di tweets per richiesta, limite massimo di twitter,<br />
+            <code>since_id = last_id[0]</code>, che dice a tweepy di continuare la ricerca con quella parola fino a quando
+            non trova un tweet con id più vecchio rispetto a questo campo<br />
+            <code>.items()</code> che fissa il numero massimo di richieste da effettuare, indipendentemente dall'id di tweet<br />
+
+            Inoltre è previsto anche l'utilizzo di PsycoPg2, per la scrittura su db dei risultati della ricerca.
+
+            Per come è stato sviluppato il codice, prendendo tutti gli elementi da db, è sufficiente
+            aggiungere o rimuovere i record per modificare gli elementi considerati.
+
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Data Cleaning</h4>
+            <p>
+                Tramite script in python, vengono prelevati i tweets presenti nella tabella "eutweets" tramite una query che
+                seleziona i tweets sporchi provenienti da uno stato europeo, inoltre mediante un sistema di whitelist viene
+                fatta una selezione dei tweets inerenti all'argomento. La query viene generata utilizzando due database, in
+                maniera tale potere aggiungere o rimiovere elementi senza effettuare modifiche al codice. Per velocizzare il
+                processo di cleaning ad ogni chiamata dello script vengono presi solo i tweets successivi all'ultimo analizzato
+                la chiamata precedente, salvando questo dato, ed aggiornandolo ad ongi nuova esecuzione, nella tabella "last_id_cleaned"
+
+                Il cleaning, come tra l'altro anche l'analisi, esendo interamente sul db, è sufficiente l'utilzzo di PsycoPg2
+                per la gestione degli elementi, ovvero lettura, pulizia e scrittura.
+
+                <code>Connessione al db tramite PsycoPg2</code>
+                <pre>
+conn = psycopg2.connect(user='', password='', dbname='dati', host='', port=5432)
+                </pre>
+
+                La base della libreria, questa parte è quella che ci permette di connetterci al db per creare i cursori e poi effettuare la pulizia.
+
+                Mediante la funzione <code>createStringForClean()</code> si accede al db per la generazione della stringa che effettua la pulizia,
+                controllando con whitelist e nazione di provenienza, e aggiorna l'id per la prossima pulizia.
+
+                <pre>
+get_toClean = conn.cursor()
+get_toClean.execute(createStringForClean())
+                </pre>
+
+                Il <code>conn.cursor()</code> è l'elemento di PsycoPg che ci fa eseguire le query e sul quale si può ciclare per verificare cio che si ottiene dalla ricerca.
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Data Analysis</h4>
+            <p>
+                Viene scorso il DB dei tweets puliti, sempre a partire dall'ultimo considerato nel precedente processo, e per ogni tweet si identifica
+                nazione di provenienza, periodo di rifierimento e linguaggio citato. Ottenuti i dati si verifica se nel database delle statistiche
+                è presente un record con questi dettagli, se presente viene aggiornato, altrimenti creato e poi aggiornato.
+
+                <br />Come accennato prima, anche in questo caso l'unica libreria utilizzata è PsycoPg2.
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Web App</h4>
+            <p>
+                La web app realizzata per la visualizzazione è un progetto in ASP.NET, con patetrn MVC,
+                che non fa altro che effettuare richieste rest al db per ottenere le statistiche 
+                e utilizzando google charts le rappresenta in forma grafica.
+            </p>
+        </div>
+    </div>
+</div>
+
+<br />Per altre informazioni rimando ai link.
+<br /><a href="https://github.com/tsac-s3m/ProjectWork/">Repository GitHub</a>
+<br /><a href="http://docs.tweepy.org/en/v3.2.0/">Documentazione Tweepy</a>
+<br /><a href="http://initd.org/psycopg/docs/">Documentazione PsycoPg2</a>
+<br /><a href="https://developers.google.com/chart/">Documentazione Google Charts</a>

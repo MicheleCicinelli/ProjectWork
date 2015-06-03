@@ -200,8 +200,8 @@
     <Compile Include="Controllers\FiltersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NationController.cs" />
-    <Compile Include="Controllers\ProgController.cs" />
-    <Compile Include="Controllers\StatisticsController.cs" />
+    <Compile Include="Controllers\LangController.cs" />
+    <Compile Include="Controllers\GlobalController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Controllers\YemController.cs" />
     <Compile Include="Global.asax.cs">
@@ -274,6 +274,7 @@
     <Content Include="Views\Filters\GlobalStats.cshtml" />
     <Content Include="Views\Filters\NationStats.cshtml" />
     <Content Include="Views\Filters\LangStats.cshtml" />
+    <Content Include="Views\Home\Documentation.cshtml" />
     <Content Include="Views\Filters\PeriodStats.cshtml" />
   </ItemGroup>
   <ItemGroup>

@@ -26,5 +26,22 @@ namespace S3M.ProjectWork.Web.Controllers
             }
             return Ok(result);
         }
+
+        public IHttpActionResult Get(string nation)
+        {
+            DataAccess data = new DataAccess();
+            var products = data.GetGenericStatsByNations(nation);
+
+            List<StatisticsModel> result = new List<StatisticsModel>();
+            foreach (var item in products)
+            {
+                StatisticsModel statistic = new StatisticsModel();
+                statistic.Prog_Lang = item.Prog_Lang;
+                statistic.Tweets = item.Tweets;
+
+                result.Add(statistic);
+            }
+            return Ok(result);
+        }
     }
 }

@@ -9,35 +9,18 @@ using System.Web.Http;
 
 namespace S3M.ProjectWork.Web.Controllers
 {
-    public class YemController : ApiController
+    public class GlobalController : ApiController
     {
+        // GET: api/Statistics
         public IHttpActionResult Get()
         {
             DataAccess data = new DataAccess();
-            var products = data.GetYearAndMonth();
+            var products = data.GetGenericStats();
 
             List<StatisticsModel> result = new List<StatisticsModel>();
             foreach (var item in products)
             {
                 StatisticsModel statistic = new StatisticsModel();
-                statistic.Year = item.Year;
-                statistic.Month = item.Month;
-
-                result.Add(statistic);
-            }
-            return Ok(result);
-        }
-
-        public IHttpActionResult Get(int year, int month)
-        {
-            DataAccess data = new DataAccess();
-            var products = data.GetStatsByYearMonth(year, month);
-
-            List<StatisticsModel> result = new List<StatisticsModel>();
-            foreach (var item in products)
-            {
-                StatisticsModel statistic = new StatisticsModel();
-
                 statistic.Prog_Lang = item.Prog_Lang;
                 statistic.Tweets = item.Tweets;
 
@@ -46,5 +29,6 @@ namespace S3M.ProjectWork.Web.Controllers
             return Ok(result);
         }
     }
+
 }
 

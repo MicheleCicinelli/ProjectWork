@@ -14,5 +14,12 @@ namespace S3M.ProjectWork.Web.Controllers
 
             return View();
         }
+
+        public ActionResult Documentation()
+        {
+            ViewBag.Title = "Documentation";
+
+            return View();
+        }
     }
 }
