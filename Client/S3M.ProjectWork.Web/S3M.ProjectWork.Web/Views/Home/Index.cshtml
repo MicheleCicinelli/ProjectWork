@@ -98,7 +98,7 @@
 
         //creazione elenco periodi 
         $.ajax({
-            url: '/api/Yam',
+            url: '/api/Yem',
             type: 'GET',
             dataType: 'json'
         }).done(function (data) {
@@ -122,31 +122,31 @@
 
             html += '</select>';
 
-            nationlist.html(html);
+            periodlist.html(html);
         }).error(function (e) {
             alert("errore")
         })
+
+        function gettingvals() {
+            var nationpicker = $('#nationpicker');
+            var langpicker = $('#langpicker');
+            var yearpicker = $('#yearpicker');
+            var monthpicker = $('#monthpicker');
+        }
 
         eustats.on('click', function () {
             window.location.href = "/Filters/GlobalStats";
         });
 
         statsbynation.on('click', function () {
-            //alert(nationpicker.val())
-            var nationpicker = $('#nationpicker');
             window.location.href = "/Filters/NationStats?whichget=1&param='" + nationpicker.value + "'";
         });
 
         statsbylang.on('click', function () {
-            //alert(langpicker.val())
-            var langpicker = $('#langpicker');
             window.location.href = "/Filters/LangStats?whichget=2&param='" + langpicker.value + "'";
         });
 
         statsbyperiod.on('click', function () {
-            //alert(langpicker.val())
-            var yearpicker = $('#yearpicker');
-            var monthpicker = $('#monthpicker');
             window.location.href = "/Filters/LangStats?whichget=2&param='" + langpicker.value + "'";
         });
 

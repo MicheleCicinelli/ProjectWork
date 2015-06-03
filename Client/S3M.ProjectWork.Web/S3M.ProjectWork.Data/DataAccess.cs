@@ -85,7 +85,7 @@ namespace S3M.ProjectWork.Data
             {
                 connection.Open();
 
-                string query = @"SELECT year, month FROM stats_v2 ORDER BY year, month ASC";
+                string query = @"SELECT year, month FROM stats_v2 GROUP BY year, month ORDER BY year, month ASC";
 
                 using (NpgsqlCommand command = connection.CreateCommand())
                 {

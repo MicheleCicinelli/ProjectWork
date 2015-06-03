@@ -12,22 +12,22 @@ namespace S3M.ProjectWork.Web.Controllers
     public class StatisticsController : ApiController
     {
         // GET: api/Statistics
-        //public IHttpActionResult Get()
-        //{
-        //    DataAccess data = new DataAccess();
-        //    var products = data.GetGenericStats();
+        public IHttpActionResult Get()
+        {
+            DataAccess data = new DataAccess();
+            var products = data.GetGenericStats();
 
-        //    List<StatisticsModel> result = new List<StatisticsModel>();
-        //    foreach (var item in products)
-        //    {
-        //        StatisticsModel statistic = new StatisticsModel();
-        //        statistic.Prog_Lang = item.Prog_Lang;
-        //        statistic.Tweets = item.Tweets;
+            List<StatisticsModel> result = new List<StatisticsModel>();
+            foreach (var item in products)
+            {
+                StatisticsModel statistic = new StatisticsModel();
+                statistic.Prog_Lang = item.Prog_Lang;
+                statistic.Tweets = item.Tweets;
 
-        //        result.Add(statistic);
-        //    }
-        //    return Ok(result);
-        //}
+                result.Add(statistic);
+            }
+            return Ok(result);
+        }
 
         // GET: api/Statistics
         public IHttpActionResult Get(int whichget, string param)
