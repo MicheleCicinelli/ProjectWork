@@ -1,0 +1,10 @@
+# KEYS AND PARAMS #
+###################
+params.config
+
+
+
+# TEMP FILE #
+#############
+*~
+*.*~
