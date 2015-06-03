@@ -1,20 +1,154 @@
-﻿<div id="pnl"></div>
+﻿<div class="container">
+    <div class="row">
+        <div class="col-md-offset-2 col-md-2">
+            <div class="btn btn-default" id="eustats">European Stats</div>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-2">
+            <div id="nationlist"></div>
+        </div>
+        <div class="col-md-2">
+            <div class="btn btn-default" id="statsbynation">Nation Stats</div>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-2">
+            <div id="langlist"></div>
+        </div>
+        <div class="col-md-2">
+            <div class="btn btn-default" id="statsbylang">Prog Stats</div>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-2">
+            <div id="periodlist"></div>
+        </div>
+        <div class="col-md-2">
+            <div class="btn btn-default" id="statsbyperiod">Period Stats</div>
+        </div>
+    </div>
+</div>
 
 @section scripts {
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
     <script type="text/javascript">
-        var pnl = $("#pnl");
 
+        var eustats = $('#eustats');
 
+        var statsbynation = $('#statsbynation');
+
+        var statsbylang = $('#statsbylang');
+
+        var statsbyperiod = $('#statsbyperiod');
+
+        var nationlist = $('#nationlist');      
+
+        var langlist = $('#langlist');
+
+        var periodlist = $('#periodlist');
+
+        //creazione elenco nazioni
         $.ajax({
-            url: '/api/Statistics',
+            url: '/api/Nation',
             type: 'GET',
             dataType: 'json'
         }).done(function (data) {
+            var html = ''
+
+            html += '<select id="nationpicker">';
+
             for (var i = 0; i < data.length; i++) {
-                pnl.html()
+                var item = data[i];
+                html += '<option value="' + item.Nation + '">' + item.Nation + '</option>';
             }
+
+            html += '</select>';
+
+            nationlist.html(html);
         }).error(function (e) {
             alert("errore")
         })
+
+        //creazione elenco linguaggi
+        $.ajax({
+            url: '/api/Prog',
+            type: 'GET',
+            dataType: 'json'
+        }).done(function (data) {
+            var html = ''
+
+            html += '<select id="langpicker">';
+
+            for (var i = 0; i < data.length; i++) {
+                var item = data[i];
+                html += '<option value="' + item.Prog_Lang + '">' + item.Prog_Lang + '</option>';
+            }
+
+            html += '</select>';
+
+            langlist.html(html);
+        }).error(function (e) {
+            alert("errore")
+        })
+
+        //creazione elenco periodi 
+        $.ajax({
+            url: '/api/Yam',
+            type: 'GET',
+            dataType: 'json'
+        }).done(function (data) {
+            var html = ''
+
+            html += '<select id="monthpicker">';
+
+            for (var i = 0; i < data.length; i++) {
+                var item = data[i];
+                html += '<option value="' + item.Month + '">' + item.Month + '</option>';
+            }
+
+            html += '</select>';
+
+            html += '<select id="yearpicker">';
+
+            for (var i = 0; i < data.length; i++) {
+                var item = data[i];
+                html += '<option value="' + item.Year + '">' + item.Year + '</option>';
+            }
+
+            html += '</select>';
+
+            nationlist.html(html);
+        }).error(function (e) {
+            alert("errore")
+        })
+
+        eustats.on('click', function () {
+            window.location.href = "/Filters/GlobalStats";
+        });
+
+        statsbynation.on('click', function () {
+            //alert(nationpicker.val())
+            var nationpicker = $('#nationpicker');
+            window.location.href = "/Filters/NationStats?whichget=1&param='" + nationpicker.value + "'";
+        });
+
+        statsbylang.on('click', function () {
+            //alert(langpicker.val())
+            var langpicker = $('#langpicker');
+            window.location.href = "/Filters/LangStats?whichget=2&param='" + langpicker.value + "'";
+        });
+
+        statsbyperiod.on('click', function () {
+            //alert(langpicker.val())
+            var yearpicker = $('#yearpicker');
+            var monthpicker = $('#monthpicker');
+            window.location.href = "/Filters/LangStats?whichget=2&param='" + langpicker.value + "'";
+        });
+
+
     </script>
 }
