@@ -1,0 +1,180 @@
+﻿<div class="container">
+    <div class="row">
+        <div class="col-md-offset-2 col-md-2">
+            <div class="btn btn-default" id="eustats">Statistiche Europee</div>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-2">
+            <div id="nationlist"></div>
+        </div>
+        <div class="col-md-2">
+            <div class="btn btn-default" id="statsbynation">Statistiche Per Nazione</div>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-2">
+            <div id="langlist"></div>
+        </div>
+        <div class="col-md-2">
+            <div class="btn btn-default" id="statsbylang">Statistiche Geografiche Per Linguaggio</div>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-2">
+            <div id="periodlist"></div>
+        </div>
+        <div class="col-md-2">
+            <div class="btn btn-default" id="statsbyperiod">Statistiche Per Periodo</div>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-2">
+            <div id="yeartowatch"></div>
+            <div id="codetowatch"></div>
+        </div>
+        <div class="col-md-2">
+            <div class="btn btn-default" id="statsbyyear">Statistiche Per Anno</div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script type="text/javascript">
+        //ASSEGNAZIONE JQUERY=======================================================================================================================================================
+        var eustats = $('#eustats');
+
+        var statsbynation = $('#statsbynation');
+        var nationlist = $('#nationlist');
+
+        var statsbylang = $('#statsbylang');
+        var langlist = $('#langlist');
+
+        var statsbyperiod = $('#statsbyperiod');
+        var periodlist = $('#periodlist');
+
+        var statsbyyear = $('#statsbyyear')
+        var yeartowatch = $('#yeartowatch')
+        var codetowatch = $('#codetowatch')
+
+        //CREATORE SELECT NAZIONI=======================================================================================================================================================
+        $.ajax({
+            url: '/api/Nation',
+            type: 'GET',
+            dataType: 'json'
+        }).done(function (data) {
+            var nationlisthtml = '<select id="nationpicker">';
+
+            for (var i = 0; i < data.length; i++) {
+                var item = data[i];
+                nationlisthtml += '<option value="' + item.Nation + '">' + item.Nation + '</option>';
+            }
+
+            nationlisthtml += '</select>';
+
+            nationlist.html(nationlisthtml);
+        }).error(function (e) { alert("errore") })
+
+        //CREATORE SELECT LINGUAGGI=======================================================================================================================================================
+        $.ajax({
+            url: '/api/Lang',
+            type: 'GET',
+            dataType: 'json'
+        }).done(function (data) {
+            var langlisthtml = '<select id="langlistpicker">';
+            var codetowatchhtml = '<select id="codetowatchpicker">';
+
+            for (var i = 0; i < data.length; i++) {
+                var item = data[i];
+                langlisthtml += '<option value="' + item.Prog_Lang + '">' + item.Prog_Lang + '</option>';
+                codetowatchhtml += '<option value="' + item.Prog_Lang + '">' + item.Prog_Lang + '</option>';
+            }
+
+            langlisthtml += '</select>';
+            codetowatchhtml += '</select>';
+
+            langlist.html(langlisthtml);
+            codetowatch.html(codetowatchhtml);
+        }).error(function (e) {
+            alert("errore")
+        })
+
+        //CREATORE SELECT ANNI E MESI=======================================================================================================================================================
+        $.ajax({
+            url: '/api/Yem',
+            type: 'GET',
+            dataType: 'json'
+        }).done(function (data) {
+            var periodlisthtml = '<select id="monthlistpicker">';
+            var yearsstowhatchtml = '<select id="yearstowatchpicker">';
+
+            for (var i = 0; i < data.length; i++) {
+                var item = data[i];
+                if (item.Month != null)
+                    periodlisthtml += '<option value="' + item.Month + '">' + item.Month + '</option>';
+            }
+
+            periodlisthtml += '</select>';
+
+            periodlisthtml += '<select id="yearlistpicker">';
+
+            for (var i = 0; i < data.length; i++) {
+                var item = data[i];
+                if (item.Year != null) {
+                    periodlisthtml += '<option value="' + item.Year + '">' + item.Year + '</option>';
+                    yearsstowhatchtml += '<option value="' + item.Year + '">' + item.Year + '</option>';
+                }
+            }
+
+            periodlisthtml += '</select>';
+            yearsstowhatchtml += '</select>';
+
+            periodlist.html(periodlisthtml);
+            yeartowatch.html(yearsstowhatchtml);
+        }).error(function (e) {
+            alert("errore")
+        })
+
+        //SEZIONE JQUERY HTML GENERATO DINAMICAMENTE=======================================================================================================================================================
+
+        function genJqueyDynamicHTML() {
+            var nationpicker = $('#nationpicker');
+            var langlistpicker = $('#langlistpicker');
+
+            var yearlistpicker = $('#yearlistpicker');
+            var monthlistpicker = $('#monthlistpicker');
+
+            var yearstats = $('#yearstowatchpicker');
+
+            var codetowatchpicker = $('#codetowatchpicker');
+        }
+
+
+        //LINK FILTRS=======================================================================================================================================================
+        eustats.on('click', function () {
+            window.location.href = "/Filters/GlobalStats";
+        });
+
+        statsbynation.on('click', function () {
+            window.location.href = "/Filters/NationStats?nation=" + nationpicker.value;
+        });
+
+        statsbylang.on('click', function () {
+            window.location.href = "/Filters/LangStats?lang=" + langlistpicker.value;
+        });
+
+        statsbyperiod.on('click', function () {
+            window.location.href = "/Filters/PeriodStats?year=" + yearlistpicker.value + "&month=" + monthlistpicker.value;
+        });
+
+        statsbyyear.on('click', function () {
+            window.location.href = "/Filters/YearStats?year=" + yearstowatchpicker.value + "&lang=" + codetowatchpicker.value;
+        });
+
+    </script>
+}

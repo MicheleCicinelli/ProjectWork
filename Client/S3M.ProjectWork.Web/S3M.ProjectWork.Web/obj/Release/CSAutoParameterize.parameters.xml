@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="DefaultConnection-Web.config Connection String" description="DefaultConnection Connection String used in web.config by the application to access the database." defaultValue="Data Source=(LocalDb)\v11.0;AttachDbFilename=|DataDirectory|\aspnet-S3M.ProjectWork.Web-20150602065317.mdf;Initial Catalog=aspnet-S3M.ProjectWork.Web-20150602065317;Integrated Security=True" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\Michele\\Desktop\\S3M\.ProjectWork\.Web\\S3M\.ProjectWork\.Web\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DefaultConnection']/@connectionString" />
+  </parameter>
+  <parameter name="cs-Web.config Connection String" description="cs Connection String used in web.config by the application to access the database." defaultValue="Server=52.16.148.22;Port=5432;Database=dati_fake;User Id=twitter;Password=tsacs3m;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\Michele\\Desktop\\S3M\.ProjectWork\.Web\\S3M\.ProjectWork\.Web\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='cs']/@connectionString" />
+  </parameter>
+</parameters>
