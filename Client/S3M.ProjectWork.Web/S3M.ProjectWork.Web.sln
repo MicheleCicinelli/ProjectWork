@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S3M.ProjectWork.Web", "S3M.ProjectWork.Web\S3M.ProjectWork.Web.csproj", "{AD32A628-B1F8-4F84-B9B9-90A02FC32152}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S3M.ProjectWork.Data", "S3M.ProjectWork.Data\S3M.ProjectWork.Data.csproj", "{3D800B2A-7179-4451-903B-33FF169C6C77}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AD32A628-B1F8-4F84-B9B9-90A02FC32152}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD32A628-B1F8-4F84-B9B9-90A02FC32152}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD32A628-B1F8-4F84-B9B9-90A02FC32152}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD32A628-B1F8-4F84-B9B9-90A02FC32152}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D800B2A-7179-4451-903B-33FF169C6C77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D800B2A-7179-4451-903B-33FF169C6C77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D800B2A-7179-4451-903B-33FF169C6C77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D800B2A-7179-4451-903B-33FF169C6C77}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
