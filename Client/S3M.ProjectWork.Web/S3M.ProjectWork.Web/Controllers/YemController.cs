@@ -55,6 +55,24 @@ namespace S3M.ProjectWork.Web.Controllers
             }
             return Ok(result);
         }
+
+        public IHttpActionResult Get(int year, string lang)
+        {
+            DataAccess data = new DataAccess();
+            var products = data.GetStatsByYearLang(year, lang);
+
+            List<StatisticsModel> result = new List<StatisticsModel>();
+            foreach (var item in products)
+            {
+                StatisticsModel statistic = new StatisticsModel();
+
+                statistic.Month = item.Month;
+                statistic.Tweets = item.Tweets;
+
+                result.Add(statistic);
+            }
+            return Ok(result);
+        }
     }
 }
 

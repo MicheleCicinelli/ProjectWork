@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = "PeriodStats";
 }
-
+<h3>Most popular programming languages in @ViewBag.Month/@ViewBag.Year</h3>
 <div id="chart" style="width: 900px; height: 500px;"></div>
 
 @section scripts {
@@ -28,7 +28,6 @@
                 var data = google.visualization.arrayToDataTable(dict);
 
                 var options = {
-                    title: 'Most popular programming languages in @ViewBag.Month/@ViewBag.Year',
                     pieHole: 0.4,
                 };
 

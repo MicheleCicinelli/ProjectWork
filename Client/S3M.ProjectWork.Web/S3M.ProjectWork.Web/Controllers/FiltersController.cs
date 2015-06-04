@@ -33,5 +33,12 @@ namespace S3M.ProjectWork.Web.Controllers
             ViewBag.Month = month;
             return View();
         }
+
+        public ActionResult YearStats(int year, string lang)
+        {
+            ViewBag.Year = year;
+            ViewBag.Lang = lang;
+            return View();
+        }
     }
 }

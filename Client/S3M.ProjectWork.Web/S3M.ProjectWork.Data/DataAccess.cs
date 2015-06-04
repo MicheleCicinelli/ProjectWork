@@ -271,6 +271,40 @@ namespace S3M.ProjectWork.Data
                 }
             }
         }
+
+        public IEnumerable<Statistics> GetStatsByYearLang(int year, string lang)
+        {
+            using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+            {
+                connection.Open();
+
+                string query = @"SELECT month, SUM(tweets) FROM stats_v2 WHERE year = @year and prog_lang = @lang GROUP BY prog_lang, month ORDER BY month";
+
+                using (NpgsqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = query;
+                    command.CommandType = CommandType.Text;
+
+                    command.Parameters.AddWithValue("@year", year);
+                    command.Parameters.AddWithValue("@lang", lang);
+
+                    NpgsqlDataReader reader = command.ExecuteReader();
+
+                    List<Statistics> statistics = new List<Statistics>();
+
+                    while (reader.Read())
+                    {
+                        Statistics statistic = new Statistics();
+
+                        statistic.Month = Convert.ToInt32(reader["month"]);
+                        statistic.Tweets = Convert.ToInt32(reader["sum"]);
+
+                        statistics.Add(statistic);
+                    }
+                    return statistics;
+                }
+            }
+        }
     }
 }
 

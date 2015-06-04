@@ -278,6 +278,7 @@
     <Content Include="Views\Filters\LangStats.cshtml" />
     <Content Include="Views\Home\Documentation.cshtml" />
     <Content Include="Views\Filters\PeriodStats.cshtml" />
+    <Content Include="Views\Filters\YearStats.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

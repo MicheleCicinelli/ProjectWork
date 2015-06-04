@@ -93,8 +93,21 @@ get_toClean.execute(createStringForClean())
             <h4>Web App</h4>
             <p>
                 La web app realizzata per la visualizzazione è un progetto in ASP.NET, con patetrn MVC,
-                che non fa altro che effettuare richieste rest al db per ottenere le statistiche 
+                che non fa altro che effettuare richieste rest al db per ottenere le statistiche
                 e utilizzando google charts le rappresenta in forma grafica.
+            </p>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h4>La Roba di logentries e circus</h4>
+            <p>
+                Per la gestione lato server degli script abbiamo utilizzato Circus, per il lancio
+                automatico dello script, in maniera tale da poterlo rilanciare in automatico appena terminato il processo
+                di data management o in caso di eccezzioni, e per la generazione dei file di log, e mediante logentries
+                reindirizziamo tutti i log sua sul portale stesso, su una chat di slack e in caso di messaggio
+                sullo standard error con avviso via mail.
             </p>
         </div>
     </div>

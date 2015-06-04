@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = "LangStats";
 }
-
+<h3>Popularity for @ViewBag.Lang</h3>
 <div id="chart" style="width: 900px; height: 500px;"></div>
 
 
@@ -29,7 +29,6 @@
                 var data = google.visualization.arrayToDataTable(dict);
 
                 var options = {
-                    title: 'Popularity for @ViewBag.Lang',
                     region: '150'
                 };
 

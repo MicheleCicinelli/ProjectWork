@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = "GlobalStats";
 }
-
+<h3>Most popular programming languages</h3>
 <div id="chart" style="width: 900px; height: 500px;"></div>
 
 
@@ -28,7 +28,6 @@
                 var data = google.visualization.arrayToDataTable(dict);
 
                 var options = {
-                    title: 'Most popular programming languages',
                     pieHole: 0.4,
                 };
 

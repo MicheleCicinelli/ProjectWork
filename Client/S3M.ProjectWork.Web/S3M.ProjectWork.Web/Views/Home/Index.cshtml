@@ -1,5 +1,4 @@
-﻿<h1>METTI STRINGA DI CONNESSIONE</h1>
-<div class="container">
+﻿<div class="container">
     <div class="row">
         <div class="col-md-offset-2 col-md-2">
             <div class="btn btn-default" id="eustats">Statistiche Europee</div>
@@ -26,10 +25,20 @@
     <hr />
     <div class="row">
         <div class="col-md-2">
-            <div id="period"></div>
+            <div id="periodlist"></div>
         </div>
         <div class="col-md-2">
             <div class="btn btn-default" id="statsbyperiod">Statistiche Per Periodo</div>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-2">
+            <div id="yeartowatch"></div>
+            <div id="codetowatch"></div>
+        </div>
+        <div class="col-md-2">
+            <div class="btn btn-default" id="statsbyyear">Statistiche Per Anno</div>
         </div>
     </div>
 </div>
@@ -37,106 +46,116 @@
 @section scripts {
     <script src="~/Scripts/jquery-1.10.2.js"></script>
     <script type="text/javascript">
-
+        //ASSEGNAZIONE JQUERY=======================================================================================================================================================
         var eustats = $('#eustats');
 
         var statsbynation = $('#statsbynation');
-
-        var statsbylang = $('#statsbylang');
-
-        var statsbyperiod = $('#statsbyperiod');
-
         var nationlist = $('#nationlist');
 
+        var statsbylang = $('#statsbylang');
         var langlist = $('#langlist');
 
-        var period = $('#period');
+        var statsbyperiod = $('#statsbyperiod');
+        var periodlist = $('#periodlist');
 
-        //creazione elenco nazioni
+        var statsbyyear = $('#statsbyyear')
+        var yeartowatch = $('#yeartowatch')
+        var codetowatch = $('#codetowatch')
+
+        //CREATORE SELECT NAZIONI=======================================================================================================================================================
         $.ajax({
             url: '/api/Nation',
             type: 'GET',
             dataType: 'json'
         }).done(function (data) {
-            var html = ''
-
-            html += '<select id="nationpicker">';
+            var nationlisthtml = '<select id="nationpicker">';
 
             for (var i = 0; i < data.length; i++) {
                 var item = data[i];
-                html += '<option value="' + item.Nation + '">' + item.Nation + '</option>';
+                nationlisthtml += '<option value="' + item.Nation + '">' + item.Nation + '</option>';
             }
 
-            html += '</select>';
+            nationlisthtml += '</select>';
 
-            nationlist.html(html);
-        }).error(function (e) {
-            alert("errore")
-        })
+            nationlist.html(nationlisthtml);
+        }).error(function (e) { alert("errore") })
 
-        //creazione elenco linguaggi
+        //CREATORE SELECT LINGUAGGI=======================================================================================================================================================
         $.ajax({
             url: '/api/Lang',
             type: 'GET',
             dataType: 'json'
         }).done(function (data) {
-            var html = ''
-
-            html += '<select id="langpicker">';
+            var langlisthtml = '<select id="langlistpicker">';
+            var codetowatchhtml = '<select id="codetowatchpicker">';
 
             for (var i = 0; i < data.length; i++) {
                 var item = data[i];
-                html += '<option value="' + item.Prog_Lang + '">' + item.Prog_Lang + '</option>';
+                langlisthtml += '<option value="' + item.Prog_Lang + '">' + item.Prog_Lang + '</option>';
+                codetowatchhtml += '<option value="' + item.Prog_Lang + '">' + item.Prog_Lang + '</option>';
             }
 
-            html += '</select>';
+            langlisthtml += '</select>';
+            codetowatchhtml += '</select>';
 
-            langlist.html(html);
+            langlist.html(langlisthtml);
+            codetowatch.html(codetowatchhtml);
         }).error(function (e) {
             alert("errore")
         })
 
-        //creazione elenco periodi
+        //CREATORE SELECT ANNI E MESI=======================================================================================================================================================
         $.ajax({
             url: '/api/Yem',
             type: 'GET',
             dataType: 'json'
         }).done(function (data) {
-            var html = ''
-
-            html += '<select id="monthpicker">';
-
-            for (var i = 0; i < data.length; i++) {
-                var item = data[i];
-                if(item.Month != null)
-                    html += '<option value="' + item.Month + '">' + item.Month + '</option>';
-            }
-
-            html += '</select>';
-
-            html += '<select id="yearpicker">';
+            var periodlisthtml = '<select id="monthlistpicker">';
+            var yearsstowhatchtml = '<select id="yearstowatchpicker">';
 
             for (var i = 0; i < data.length; i++) {
                 var item = data[i];
-                if (item.Year != null)
-                    html += '<option value="' + item.Year + '">' + item.Year + '</option>';
+                if (item.Month != null)
+                    periodlisthtml += '<option value="' + item.Month + '">' + item.Month + '</option>';
             }
 
-            html += '</select>';
+            periodlisthtml += '</select>';
 
-            period.html(html);
+            periodlisthtml += '<select id="yearlistpicker">';
+
+            for (var i = 0; i < data.length; i++) {
+                var item = data[i];
+                if (item.Year != null) {
+                    periodlisthtml += '<option value="' + item.Year + '">' + item.Year + '</option>';
+                    yearsstowhatchtml += '<option value="' + item.Year + '">' + item.Year + '</option>';
+                }
+            }
+
+            periodlisthtml += '</select>';
+            yearsstowhatchtml += '</select>';
+
+            periodlist.html(periodlisthtml);
+            yeartowatch.html(yearsstowhatchtml);
         }).error(function (e) {
             alert("errore")
         })
 
-        function gettingvals() {
-            var nationpicker = $('#nationpicker');
-            var langpicker = $('#langpicker');
+        //SEZIONE JQUERY HTML GENERATO DINAMICAMENTE=======================================================================================================================================================
 
-            var yearpickerS = $('#yearpicker');
-            var monthpickerS = $('#monthpicker');
+        function genJqueyDynamicHTML() {
+            var nationpicker = $('#nationpicker');
+            var langlistpicker = $('#langlistpicker');
+
+            var yearlistpicker = $('#yearlistpicker');
+            var monthlistpicker = $('#monthlistpicker');
+
+            var yearstats = $('#yearstowatchpicker');
+
+            var codetowatchpicker = $('#codetowatchpicker');
         }
 
+
+        //LINK FILTRS=======================================================================================================================================================
         eustats.on('click', function () {
             window.location.href = "/Filters/GlobalStats";
         });
@@ -146,11 +165,15 @@
         });
 
         statsbylang.on('click', function () {
-            window.location.href = "/Filters/LangStats?lang=" + langpicker.value;
+            window.location.href = "/Filters/LangStats?lang=" + langlistpicker.value;
         });
 
         statsbyperiod.on('click', function () {
-            window.location.href = "/Filters/PeriodStats?year=" + yearpicker.value + "&month=" + monthpicker.value;
+            window.location.href = "/Filters/PeriodStats?year=" + yearlistpicker.value + "&month=" + monthlistpicker.value;
+        });
+
+        statsbyyear.on('click', function () {
+            window.location.href = "/Filters/YearStats?year=" + yearstowatchpicker.value + "&lang=" + codetowatchpicker.value;
         });
 
     </script>
